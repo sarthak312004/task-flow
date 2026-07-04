@@ -12,11 +12,20 @@ let counterMin = 0
 let counterhr = 0
 let isRunning = false
 let interval;
-
+let startGlowHigher;
+let startGlowLower;
 //Click handler
 function playpauseHandler(){
     if(isRunning == false){
         startCounter()
+        startGlowHigher = setInterval(function(){
+            document.querySelector('.counter-div').style.boxShadow = "0px 0px 10px 3px rgb(134 186 255 / 23%"
+        },1000)
+
+        startGlowLower = setInterval(function(){
+            document.querySelector('.counter-div').style.boxShadow = "none"
+        },2000)
+
     }else{
         stopCounter()
     }
@@ -40,6 +49,7 @@ function startCounter(){
                 document.querySelector('#hr').innerHTML = `${counterhr}`
             }
         }
+        
     },1000) 
 
     isRunning = true
@@ -65,4 +75,7 @@ function resetCounter(){
     document.querySelector('#sec').innerHTML = `${counterSec}`
     document.querySelector('#min').innerHTML = `${counterMin}`
     document.querySelector('#hr').innerHTML = `${counterhr}`
+    document.querySelector('.counter-div').style.boxShadow = "none"
+    clearInterval(startGlowHigher)
+    clearInterval(startGlowLower)
 }

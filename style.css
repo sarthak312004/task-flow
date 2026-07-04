@@ -141,10 +141,12 @@
   align-items: center;
   gap: 15px;
   font-size: 2rem;
+  transition: all 1000ms ease-in-out;
 }
 .time {
   display: flex;
   /* gap: 15px; */
+  /* font-size: 2rem; */
 }
 .time div{
   position: relative;
