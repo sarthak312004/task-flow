@@ -170,7 +170,7 @@
 }
 
 #reset-btn,
-#play-btn, #pause-btn {
+#play-pause-btn, #pause-btn {
   width: 30px;
   height: 30px;
   padding: 0;
@@ -179,13 +179,13 @@
   transition: all 50ms ease-in-out;
 }
 #reset-btn img,
-#play-btn img, #pause-btn img {
+#play-pause-btn img, #pause-btn img {
   height: 100%;
   aspect-ratio: 1;
   filter: invert(1);
 }
 #reset-btn img:hover,
-#play-btn img:hover, #pause-btn img:hover {
+#play-pause-btn img:hover, #pause-btn img:hover {
   transform: scale(110%);
 }
 .task-panel {
