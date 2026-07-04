@@ -144,6 +144,21 @@
 }
 .time {
   display: flex;
+  /* gap: 15px; */
+}
+.time div{
+  position: relative;
+  width: 60px;
+  height: 50px;
+  display:flex;
+  justify-content: center;
+  align-items:end;
+}
+.time div p:last-child{
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+  font-size: 0.6rem;
 }
 .counter-options {
   height: 30px;
@@ -155,7 +170,7 @@
 }
 
 #reset-btn,
-#play-pause-btn {
+#play-btn, #pause-btn {
   width: 30px;
   height: 30px;
   padding: 0;
@@ -164,13 +179,13 @@
   transition: all 50ms ease-in-out;
 }
 #reset-btn img,
-#play-pause-btn img {
+#play-btn img, #pause-btn img {
   height: 100%;
   aspect-ratio: 1;
   filter: invert(1);
 }
 #reset-btn img:hover,
-#play-pause-btn img:hover {
+#play-btn img:hover, #pause-btn img:hover {
   transform: scale(110%);
 }
 .task-panel {
