@@ -24,8 +24,27 @@
 
         <!-- main body -->
             <div class="mid-container">
-                <div class="counter-div"></div>
-                <div class="task-pannel"></div>
+                <div class="counter-div">
+                    <div class="time">
+                        <p id="hr">00:</p>
+                        <p id="min">00:</p>
+                        <p id="sec">00</p>
+                    </div>
+
+                    <div class="counter-options">
+                        <button id="play-pause-btn"><img src="res/play-icon.png" alt=""></button>
+                        <button id="reset-btn"><img src="res/reset-icon.png" alt=""></button>
+                    </div>
+
+                </div>
+
+                <div class="task-panel">
+                    <div class="task-panel-header">
+                        <input type="text" placeholder="Brushing tooth..." id="add-task-input">
+                        <button id="add-task-btn">ADD</button>
+                    </div>
+                </div>
+
             </div>
     </div>
 </body>

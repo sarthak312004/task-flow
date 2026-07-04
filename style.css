@@ -24,7 +24,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   padding-left: 10px;
-    padding-right: 10px;
+  padding-right: 10px;
 }
 .menu-icon {
   height: 100%;
@@ -102,7 +102,7 @@
   box-shadow: 0px 0px 20px 5px #00000057;
   justify-self: center;
 }
-.mid-container div {
+.mid-container > div {
   background-color: var(--defElemBgColorHover);
   border: 1px solid rgb(99, 99, 99);
   margin: 10px;
@@ -112,15 +112,17 @@
 @media screen and (max-width: 512px) {
   [container-box="grid"] {
     grid-template-rows: 80px 1fr;
-     height: 100vh;
+    height: 100vh;
   }
   #Title {
     font-size: 2rem;
   }
-  .option-btn p, .menu-btn p{
+  .option-btn p,
+  .menu-btn p {
     display: none;
   }
-  .option-btn , .menu-btn{
+  .option-btn,
+  .menu-btn {
     width: 40px;
     border-radius: 20px;
   }
@@ -132,3 +134,75 @@
     grid-template-rows: 1fr 1.5fr;
   }
 }
+.counter-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  font-size: 2rem;
+}
+.time {
+  display: flex;
+}
+.counter-options {
+  height: 30px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+#reset-btn,
+#play-pause-btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  transition: all 50ms ease-in-out;
+}
+#reset-btn img,
+#play-pause-btn img {
+  height: 100%;
+  aspect-ratio: 1;
+  filter: invert(1);
+}
+#reset-btn img:hover,
+#play-pause-btn img:hover {
+  transform: scale(110%);
+}
+.task-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+.task-panel-header {
+  height: 35px;
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.task-panel-header > input,
+.task-panel-header > button {
+  height: 90%;
+  border-radius: 10px;
+  border: none;
+  font-family: var(--deftextfamily);
+}
+.task-panel-header > input{
+  background-color: #616161;
+  width: 70%;
+  text-align: center;
+  color: white;
+  font-family: var(--deftextfamily);
+}
+.task-panel-header > button{
+  background-color: rgba(103, 207, 255, 0.792);
+}
+.task-panel-header > input::placeholder{
+  color: #ffffffc1;
+} 
