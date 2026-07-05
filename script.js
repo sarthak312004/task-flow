@@ -57,7 +57,7 @@ function startCounter(){
     document.querySelector('.counter-options').appendChild(resetBtn)
   }
 }
-
+ 
 document.querySelector('#play-pause-btn').addEventListener('click', playpauseHandler)
 
 // Pause and Reset Timer
