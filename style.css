@@ -43,6 +43,7 @@
   align-items: center;
   gap: 5px;
   transition: all 50ms ease-in-out;
+  cursor: pointer;
 }
 #menu-img-icon {
   height: 25px;
@@ -74,6 +75,7 @@
   align-items: center;
   gap: 5px;
   transition: all 50ms ease-in-out;
+  cursor: pointer;
 }
 #options-img-icon {
   height: 20px;
@@ -179,6 +181,7 @@
   border: 0;
   background-color: transparent;
   transition: all 50ms ease-in-out;
+  cursor: pointer;
 }
 #reset-btn img,
 #play-pause-btn img, #pause-btn img {
@@ -221,6 +224,10 @@
 }
 .task-panel-header > button{
   background-color: rgba(103, 207, 255, 0.792);
+  cursor: pointer;
+}
+.task-panel-header > button:hover{
+  background-color: rgba(103, 207, 255, 0.635);
 }
 .task-panel-header > input::placeholder{
   color: #ffffffc1;
@@ -237,6 +244,7 @@
   padding-right: 10px;
   box-sizing: border-box;
   margin-top: 5px;
+  row-gap: 5px;
 }
 ::-webkit-scrollbar {
   width: 5px;
@@ -260,7 +268,7 @@
   padding-left: 10px;
   padding-right: 10px;
   box-sizing: border-box;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #e8e8e8;
 }
 .taskname-timing-box{
@@ -295,6 +303,13 @@ input[type="checkbox"]:checked::after {
   border-radius: 50%;
   background: rgb(220, 219, 219);
 }
+
+.select-deselect-trash{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 #task-div button{
   height: 30px;
   width: 30px;
@@ -304,6 +319,7 @@ input[type="checkbox"]:checked::after {
   background-color: transparent;
   border: none;
   transition: all 50ms ease-in-out;
+  cursor: pointer;
 }
 #task-div button:hover{
   opacity: 0.8;
@@ -312,8 +328,8 @@ input[type="checkbox"]:checked::after {
   height: 100%;
   aspect-ratio: 1;
 }
-#task-div a{
-  text-decoration: none;
+#select-deselect{
+  cursor: pointer;
   color: rgb(191, 235, 253);
 }
 .taskname-timing p:last-child{

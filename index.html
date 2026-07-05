@@ -40,11 +40,12 @@
 
                 <div class="task-panel">
                     <div class="task-panel-header">
-                        <input type="text" placeholder="Brushing tooth..." id="add-task-input">
+                        <input type="text" name="addtask" placeholder="Brushing tooth..." id="add-task-input">
                         <button id="add-task-btn">ADD</button>
                     </div>
                     
                     <div class="task-panel-content">
+
                         <div id="task-div">
                             <div class="taskname-timing-box">
                                 <input type="checkbox" name="check" id="checkTask">
@@ -53,9 +54,12 @@
                                     <p>Given Time</p>
                                 </div>
                             </div>
-                            <a href="">Select</a>
-                            <button><img src="res/trash-icon.png" alt=""></button>
+                            <div class="select-deselect-trash">
+                                <p id="select-deselect">Select</p>
+                                <button><img src="res/trash-icon.png" alt=""></button>
+                            </div>
                         </div>
+
                     </div>
                 </div>
 

@@ -79,3 +79,85 @@ function resetCounter(){
     clearInterval(startGlowHigher)
     clearInterval(startGlowLower)
 }
+
+//Adding tasks
+const tasks = [{taskName:"Task one", progress: 0, checked: false, id:0}]
+
+//Unique id generation
+let id;
+const generateId = ()=>{
+    if(tasks.length === 0){
+        return 0
+    }else{
+        return id = Number(tasks[tasks.length-1].id) + 1
+        // console.log(id);
+    }
+}
+const addTask = () =>{
+    let input = document.querySelector('#add-task-input')
+
+    if(document.querySelector('#add-task-input').value){
+        const taskName = document.querySelector('#add-task-input').value
+        tasks.push({taskName:`${taskName}`, progress: 0, checked: false, id: generateId()})
+        createCard(Number(tasks[tasks.length-1].id))
+        input.value = ""
+    }else{
+        input.focus()
+    }
+}
+document.querySelector('#add-task-btn').addEventListener('click', addTask)
+
+//creating taskcard and adding
+const create = (taskObj) =>{
+    const parent = document.createElement('div')
+    parent.id = 'task-div'
+
+    const child = document.createElement('div')
+    child.className = 'taskname-timing-box'
+    const input = document.createElement('input')
+    input.id = 'checkTask'
+    input.type = 'checkbox'
+
+    const subchild = document.createElement('div')
+    subchild.className = 'taskname-timing'
+    const pOne = document.createElement('p')
+    pOne.innerText = taskObj.taskName
+    const pTwo = document.createElement('p')
+    pTwo.innerText = `${taskObj.progress}m`
+    subchild.appendChild(pOne)
+    subchild.appendChild(pTwo)
+    child.appendChild(input)
+    child.appendChild(subchild)
+
+    const divTwo = document.createElement('div')
+    divTwo.className = 'select-deselect-trash'
+
+    const p = document.createElement('p')
+    p.id ='select-deselect'
+    p.innerText = "Select"
+    divTwo.appendChild(p)
+
+    const trashBtn = document.createElement('button')
+    const img = document.createElement('img')
+    img.src = 'res/trash-icon.png'
+    trashBtn.appendChild(img)
+    divTwo.appendChild(trashBtn)
+
+    parent.appendChild(child)
+    parent.appendChild(divTwo)
+
+    const taskPanelContent = document.querySelector('.task-panel-content')
+    if (taskPanelContent) {
+        taskPanelContent.appendChild(parent)
+    }
+}
+
+const createCard = (id) =>{
+    // console.log(id);
+    tasks.forEach((taskObj)=>{
+        if(Number(taskObj.id) === id){
+            // console.log(true);
+            create(taskObj)
+        }
+    })
+}
