@@ -121,8 +121,9 @@ const create = (taskObj) =>{
     const child = document.createElement('div')
     child.className = 'taskname-timing-box'
     const input = document.createElement('input')
-    input.id = 'checkTask'
+    input.id = taskObj.taskName
     input.type = 'checkbox'
+    input.onclick = () => checkTask(taskObj.taskName)
 
     const subchild = document.createElement('div')
     subchild.className = 'taskname-timing'
@@ -182,6 +183,27 @@ const deleteTask = (id)=>{
             tasks.splice(index,1)
             const parentDiv = (document.getElementById(id).parentElement).parentElement
             parentDiv.remove()
+        }
+    })
+}
+
+//Check validation 
+const checkTask = (taskName) =>{
+    tasks.forEach((obj)=>{
+        if((obj.taskName === taskName) && obj.checked === false){
+            obj.checked = true
+            // console.log(obj);
+            const p = document.getElementById(taskName)
+            p.nextSibling.firstChild.style.color = "#e8e8e894"
+            p.nextSibling.firstChild.style.textDecoration = "line-through"
+            p.parentElement.parentElement.style.opacity = '0.7'
+        }else{
+            obj.checked = false
+            // console.log(obj);
+            const p = document.getElementById(taskName)
+            p.nextSibling.firstChild.style.color = "#e8e8e8"
+            p.nextSibling.firstChild.style.textDecoration = "none"
+            p.parentElement.parentElement.style.opacity = '1'
         }
     })
 }
