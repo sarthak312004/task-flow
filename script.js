@@ -191,22 +191,25 @@ const deleteTask = (id)=>{
 //Check validation 
 const checkTask = (taskName) =>{
     tasks.forEach((obj)=>{
-        if((obj.taskName === taskName) && obj.checked === false){
-            obj.checked = true
-            // console.log(obj);
-            const p = document.getElementById(taskName)
-            p.nextSibling.firstChild.style.color = "#e8e8e894"
-            p.nextSibling.firstChild.style.textDecoration = "line-through"
-            p.parentElement.parentElement.style.opacity = '0.7'
-            p.parentElement.nextElementSibling.firstChild.style.pointerEvents = 'none'
-        }else{
-            obj.checked = false
-            // console.log(obj);
-            const p = document.getElementById(taskName)
-            p.nextSibling.firstChild.style.color = "#e8e8e8"
-            p.nextSibling.firstChild.style.textDecoration = "none"
-            p.parentElement.parentElement.style.opacity = '1'
-            p.parentElement.nextElementSibling.firstChild.style.pointerEvents = 'auto'
+        // console.log(obj);
+        if((obj.taskName === taskName)){
+            if(obj.checked === false){
+                obj.checked = true
+                console.log(obj);
+                const p = document.getElementById(taskName)
+                p.nextSibling.firstChild.style.color = "#e8e8e894"
+                p.nextSibling.firstChild.style.textDecoration = "line-through"
+                p.parentElement.parentElement.style.opacity = '0.7'
+                p.parentElement.nextElementSibling.firstChild.style.pointerEvents = 'none'
+            }else if(obj.checked === true){
+                obj.checked = false
+                // console.log(obj);
+                const p = document.getElementById(taskName)
+                p.nextSibling.firstChild.style.color = "#e8e8e8"
+                p.nextSibling.firstChild.style.textDecoration = "none"
+                p.parentElement.parentElement.style.opacity = '1'
+                p.parentElement.nextElementSibling.firstChild.style.pointerEvents = 'auto'
+            }
         }
     })
 } 
