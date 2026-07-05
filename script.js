@@ -81,7 +81,7 @@ function resetCounter(){
 }
 
 //Adding tasks
-const tasks = [{taskName:"Task one", progress: 0, checked: false, id:0}]
+const tasks = []
 
 //Unique id generation
 let id;
@@ -106,6 +106,12 @@ const addTask = () =>{
     }
 }
 document.querySelector('#add-task-btn').addEventListener('click', addTask)
+//Using Enter keydown
+document.querySelector('#add-task-input').addEventListener('keydown',function(e){
+   if(e.code === "Enter"){
+    addTask()
+   }
+})
 
 //creating taskcard and adding
 const create = (taskObj) =>{
@@ -138,6 +144,9 @@ const create = (taskObj) =>{
     divTwo.appendChild(p)
 
     const trashBtn = document.createElement('button')
+    trashBtn.id = taskObj.id
+    trashBtn.onclick = () => deleteTask(taskObj.id)
+    
     const img = document.createElement('img')
     img.src = 'res/trash-icon.png'
     trashBtn.appendChild(img)
@@ -158,6 +167,21 @@ const createCard = (id) =>{
         if(Number(taskObj.id) === id){
             // console.log(true);
             create(taskObj)
+        }
+    })
+}
+
+//Delete Functionality
+
+const deleteTask = (id)=>{
+    // console.log(typeof(id));
+
+    tasks.forEach((obj,index)=>{
+        if(obj.id === id){
+            // console.log(index);
+            tasks.splice(index,1)
+            const parentDiv = (document.getElementById(id).parentElement).parentElement
+            parentDiv.remove()
         }
     })
 }
