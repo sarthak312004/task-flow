@@ -98,7 +98,7 @@ const addTask = () =>{
 
     if(document.querySelector('#add-task-input').value){
         const taskName = document.querySelector('#add-task-input').value
-        tasks.push({taskName:`${taskName}`, progress: 0, checked: false, id: generateId()})
+        tasks.push({taskName:`${taskName}`, progress: 0, checked: false, id: generateId(), selected: false})
         createCard(Number(tasks[tasks.length-1].id))
         input.value = ""
     }else{
@@ -142,6 +142,7 @@ const create = (taskObj) =>{
     const p = document.createElement('p')
     p.id ='select-deselect'
     p.innerText = "Select"
+    p.onclick = () => selectTask(taskObj.id)
     divTwo.appendChild(p)
 
     const trashBtn = document.createElement('button')
@@ -197,6 +198,7 @@ const checkTask = (taskName) =>{
             p.nextSibling.firstChild.style.color = "#e8e8e894"
             p.nextSibling.firstChild.style.textDecoration = "line-through"
             p.parentElement.parentElement.style.opacity = '0.7'
+            p.parentElement.nextElementSibling.firstChild.style.pointerEvents = 'none'
         }else{
             obj.checked = false
             // console.log(obj);
@@ -204,6 +206,43 @@ const checkTask = (taskName) =>{
             p.nextSibling.firstChild.style.color = "#e8e8e8"
             p.nextSibling.firstChild.style.textDecoration = "none"
             p.parentElement.parentElement.style.opacity = '1'
+            p.parentElement.nextElementSibling.firstChild.style.pointerEvents = 'auto'
         }
+    })
+} 
+
+//Select functionality
+const ableDisableTasks = (container,id, state) =>{
+    const containerArr = Array.from(container)
+    if(state === true){
+        containerArr.forEach((obj)=>{
+            // console.log(obj.children[1].children[1].id);
+            if(!(Number(obj.children[1].children[1].id) === id)){
+                obj.style.pointerEvents = 'none'
+                obj.style.opacity = '0.5'
+            }
+        })
+    }else{
+        containerArr.forEach((obj)=>{
+            // console.log(obj.children[1].children[1].id);
+            if(!(Number(obj.children[1].children[1].id) === id)){
+                obj.style.pointerEvents = 'auto'
+                obj.style.opacity = '1'
+            }
+        })
+    }
+}
+const selectTask = (id)=>{
+    tasks.forEach((obj)=>{
+        let selectP = document.getElementById(id).previousElementSibling
+        if((obj.id === id) && (obj.selected === false)){
+            obj.selected = true
+            selectP.innerText = 'Deselect'
+            ableDisableTasks(document.querySelector('.task-panel-content').children, id, true)
+        }else if((obj.id === id) && (obj.selected === true)){
+            obj.selected = false
+            selectP.innerText = 'Select'
+            ableDisableTasks(document.querySelector('.task-panel-content').children, id, false)
+        }   
     })
 }
