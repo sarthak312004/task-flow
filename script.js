@@ -15,7 +15,6 @@ let interval;
 let startGlowHigher;
 let startGlowLower;
 let selectedTask;
-let currentTaskProgress = 0;
 //Click handler
 function playpauseHandler(){
     if(isRunning == false){
@@ -33,12 +32,23 @@ function playpauseHandler(){
     }
 }
 
+//fetch the progress
+function fetchProgress(){
+    let selectedDiv =Number(selectedTask.children[1].children[1].id)
+    let progress;
+    tasks.forEach((obj)=>{
+        if(selectedDiv === obj.id){
+            progress = obj.progress
+        }
+    }) 
+    return progress
+}
+
 //Update progression
 const updateProgress = (progress) =>{
     tasks.forEach((obj)=>{
         if(obj.selected === true){
             obj.progress += progress
-            currentTaskProgress += progress
         }
     })
 }
@@ -79,7 +89,7 @@ function stopCounter(){
     isRunning = false
     document.querySelector('#play-pause-btn img').src = "res/play-icon.png"
     if(selectedTask != undefined){
-        selectedTask.firstChild.firstChild.nextElementSibling.firstChild.nextElementSibling.innerText = `${currentTaskProgress}m`
+        selectedTask.firstChild.firstChild.nextElementSibling.firstChild.nextElementSibling.innerText = `${fetchProgress()}m`
     }
 }
 function resetCounter(){
@@ -159,6 +169,13 @@ const create = (taskObj) =>{
     p.id ='select-deselect'
     p.innerText = "Select"
     p.onclick = () => selectTask(taskObj.id)
+
+    // p.addEventListener('click',function(){
+    //     console.log(this.parentElement);
+    //     console.log(this.nextElementSibling.id);
+    //     // selectTask(this.nextElementSibling.id)
+    // })
+
     divTwo.appendChild(p)
 
     const trashBtn = document.createElement('button')
@@ -211,7 +228,7 @@ const checkTask = (taskName) =>{
         if((obj.taskName === taskName)){
             if(obj.checked === false){
                 obj.checked = true
-                console.log(obj);
+                // console.log(obj);
                 const p = document.getElementById(taskName)
                 p.nextSibling.firstChild.style.color = "#e8e8e894"
                 p.nextSibling.firstChild.style.textDecoration = "line-through"
@@ -264,7 +281,6 @@ const selectTask = (id)=>{
             ableDisableTasks(document.querySelector('.task-panel-content').children, id, true)
         }else if((obj.id === id) && (obj.selected === true)){
             obj.selected = false
-            currentTaskProgress = 0
             selectP.innerText = 'Select'
             ableDisableTasks(document.querySelector('.task-panel-content').children, id, false)
         }   
