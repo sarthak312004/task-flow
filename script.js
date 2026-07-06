@@ -14,6 +14,8 @@ let isRunning = false
 let interval;
 let startGlowHigher;
 let startGlowLower;
+let selectedTask;
+let currentTaskProgress = 0;
 //Click handler
 function playpauseHandler(){
     if(isRunning == false){
@@ -31,6 +33,16 @@ function playpauseHandler(){
     }
 }
 
+//Update progression
+const updateProgress = (progress) =>{
+    tasks.forEach((obj)=>{
+        if(obj.selected === true){
+            obj.progress = progress
+            currentTaskProgress = progress
+        }
+    })
+}
+
 // Start the timer
 function startCounter(){
     if(isRunning === false){
@@ -41,6 +53,8 @@ function startCounter(){
             counterSec = 0
             document.querySelector('#sec').innerHTML = `${counterSec}`
             counterMin++
+            updateProgress(counterMin)
+
             document.querySelector('#min').innerHTML = `${counterMin}`
             if(counterMin == 60){
                 counterMin = 0
@@ -57,7 +71,6 @@ function startCounter(){
     document.querySelector('.counter-options').appendChild(resetBtn)
   }
 }
- 
 document.querySelector('#play-pause-btn').addEventListener('click', playpauseHandler)
 
 // Pause and Reset Timer
@@ -65,6 +78,9 @@ function stopCounter(){
     clearInterval(interval)
     isRunning = false
     document.querySelector('#play-pause-btn img').src = "res/play-icon.png"
+    if(selectedTask != undefined){
+        selectedTask.firstChild.firstChild.nextElementSibling.firstChild.nextElementSibling.innerText = `${currentTaskProgress}m`
+    }
 }
 function resetCounter(){
     stopCounter()
@@ -219,10 +235,14 @@ const ableDisableTasks = (container,id, state) =>{
     const containerArr = Array.from(container)
     if(state === true){
         containerArr.forEach((obj)=>{
+            // console.log(obj);
             // console.log(obj.children[1].children[1].id);
             if(!(Number(obj.children[1].children[1].id) === id)){
                 obj.style.pointerEvents = 'none'
                 obj.style.opacity = '0.5'
+            }
+            if((Number(obj.children[1].children[1].id) === id)){
+                selectedTask = obj
             }
         })
     }else{
