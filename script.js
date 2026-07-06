@@ -37,8 +37,8 @@ function playpauseHandler(){
 const updateProgress = (progress) =>{
     tasks.forEach((obj)=>{
         if(obj.selected === true){
-            obj.progress = progress
-            currentTaskProgress = progress
+            obj.progress += progress
+            currentTaskProgress += progress
         }
     })
 }
@@ -53,7 +53,7 @@ function startCounter(){
             counterSec = 0
             document.querySelector('#sec').innerHTML = `${counterSec}`
             counterMin++
-            updateProgress(counterMin)
+            updateProgress(1)
 
             document.querySelector('#min').innerHTML = `${counterMin}`
             if(counterMin == 60){
@@ -264,6 +264,7 @@ const selectTask = (id)=>{
             ableDisableTasks(document.querySelector('.task-panel-content').children, id, true)
         }else if((obj.id === id) && (obj.selected === true)){
             obj.selected = false
+            currentTaskProgress = 0
             selectP.innerText = 'Select'
             ableDisableTasks(document.querySelector('.task-panel-content').children, id, false)
         }   
