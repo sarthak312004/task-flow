@@ -66,6 +66,7 @@
   align-items: center;
 }
 .option-btn {
+  position: relative;
   width: 110px;
   height: 40px;
   background-color: var(--defElemBgColor);
@@ -334,4 +335,62 @@ input[type="checkbox"]:checked::after {
 }
 .taskname-timing p:last-child{
   font-size: 0.7rem;
+}
+
+.mid-container .dropdown-optio-container{
+  position: absolute;
+  right: 0%;
+  width: 160px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  top: 15%;
+  background-color: var(--defElemBgColor) !important;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: all 150ms ease-in-out;
+  visibility: hidden;
+  gap: 5%;
+}
+.dropdown-optio-container h4{
+  font-weight: 400;
+  margin-left: 10%;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.dropdown-optio-container h4:hover{
+  opacity: 1;
+  font-weight: 500;
+}
+
+.mid-container .dropdown-menu-container{
+  position: absolute;
+  left: 0%;
+  width: 160px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  top: 15%;
+  background-color: var(--defElemBgColor) !important;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: all 150ms ease-in-out;
+  visibility: hidden;
+  gap: 5%;
+}
+.dropdown-menu-container h4{
+  font-weight: 400;
+  margin-left: 10%;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.dropdown-menu-container h4:hover{
+  opacity: 1;
+  font-weight: 500;
 }

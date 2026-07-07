@@ -286,3 +286,35 @@ const selectTask = (id)=>{
         }   
     })
 }
+
+// option-btn dropdown
+let optionsDropped = false
+let menuDropped = false
+function dropdownOption(){
+    if ((optionsDropped === false) && (this.className === 'option-btn')) {
+        const dropdownOption = document.querySelector('.dropdown-optio-container')
+        dropdownOption.style.transform = 'translateX(-30px)'
+        dropdownOption.style.visibility = 'visible'
+        optionsDropped = true
+    } else {
+        const dropdownOption = document.querySelector('.dropdown-optio-container')
+        dropdownOption.style.visibility = 'hidden'
+        dropdownOption.style.transform = 'translateX(0px)'
+        optionsDropped = false
+    }
+
+    if ((menuDropped === false) && (this.className === 'menu-btn')) {
+        const dropdownMenu = document.querySelector('.dropdown-menu-container')
+        dropdownMenu.style.transform = 'translateX(30px)'
+        dropdownMenu.style.visibility = 'visible'
+        menuDropped = true
+    } else {
+        const dropdownMenu = document.querySelector('.dropdown-menu-container')
+        dropdownMenu.style.transform = 'translateX(0px)'
+        dropdownMenu.style.visibility = 'hidden'
+        menuDropped = false
+    }
+    
+}
+document.querySelector('.option-btn').addEventListener('click',dropdownOption)
+document.querySelector('.menu-btn').addEventListener('click',dropdownOption)
