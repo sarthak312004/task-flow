@@ -15,7 +15,8 @@ let interval;
 let startGlowHigher;
 let startGlowLower;
 let selectedTask;
-//Click handler
+
+//-----------------------------------------------Click handler
 function playpauseHandler() {
   if (isRunning == false) {
     startCounter();
@@ -32,7 +33,7 @@ function playpauseHandler() {
   }
 }
 
-//fetch the progress
+//-------------------------------------------------fetch the progress
 function fetchProgress() {
   let selectedDiv = Number(selectedTask.children[1].children[1].id);
   let progress;
@@ -44,7 +45,7 @@ function fetchProgress() {
   return progress;
 }
 
-//Update progression
+//---------------------------------------------------Update progression
 const updateProgress = (progress) => {
   tasks.forEach((obj) => {
     if (obj.selected === true) {
@@ -53,7 +54,7 @@ const updateProgress = (progress) => {
   });
 };
 
-// Start the timer
+// -------------------------------------------------Start the timer
 function startCounter() {
   if (isRunning === false) {
     interval = setInterval(function () {
@@ -84,7 +85,7 @@ document
   .querySelector("#play-pause-btn")
   .addEventListener("click", playpauseHandler);
 
-// Pause and Reset Timer
+//---------------------------------------------------- Pause and Reset Timer
 function stopCounter() {
   clearInterval(interval);
   isRunning = false;
@@ -107,20 +108,14 @@ function resetCounter() {
   clearInterval(startGlowLower);
 }
 
-//Adding tasks
+//---Adding tasks
 const tasks = [
   { taskName: "study", progress: 0, checked: false, id: 0, selected: false },
   { taskName: "running", progress: 0, checked: false, id: 1, selected: false },
-  {
-    taskName: "meditation",
-    progress: 0,
-    checked: false,
-    id: 2,
-    selected: false,
-  },
+  { taskName: "meditation", progress: 0, checked: false, id: 2, selected: false,},
 ];
 
-//Unique id generation
+//-----------------------------------Unique id generation
 let id;
 const generateId = () => {
   if (tasks.length === 0) {
@@ -158,7 +153,7 @@ document
     }
   });
 
-//creating taskcard and adding
+//------------------------------------------creating taskcard and adding
 const create = (taskObj) => {
   const parent = document.createElement("div");
   parent.id = "task-div";
@@ -225,8 +220,7 @@ const createCard = (id) => {
   });
 };
 
-//Delete Functionality
-
+//----------------------------------------------Delete Functionality
 const deleteTask = (id) => {
   // console.log(typeof(id));
 
@@ -240,35 +234,41 @@ const deleteTask = (id) => {
   });
 };
 
-//Check validation
-const checkTask = (taskName) => {
+// -------------------------------------------------Check validation
+const checkTask = (taskName, indx) => {
   tasks.forEach((obj) => {
+    let p = document.getElementById(taskName);
     // console.log(obj);
-    if (obj.taskName === taskName) {
+    if ((obj.taskName === taskName) && (!indx)) {
       if (obj.checked === false) {
         obj.checked = true;
         // console.log(obj);
-        const p = document.getElementById(taskName);
         p.nextSibling.firstChild.style.color = "#e8e8e894";
         p.nextSibling.firstChild.style.textDecoration = "line-through";
         p.parentElement.parentElement.style.opacity = "0.7";
-        p.parentElement.nextElementSibling.firstChild.style.pointerEvents =
-          "none";
+        p.parentElement.nextElementSibling.firstChild.style.pointerEvents = "none";
       } else if (obj.checked === true) {
         obj.checked = false;
         // console.log(obj);
-        const p = document.getElementById(taskName);
         p.nextSibling.firstChild.style.color = "#e8e8e8";
         p.nextSibling.firstChild.style.textDecoration = "none";
         p.parentElement.parentElement.style.opacity = "1";
-        p.parentElement.nextElementSibling.firstChild.style.pointerEvents =
-          "auto";
+        p.parentElement.nextElementSibling.firstChild.style.pointerEvents = "auto";
+      }
+
+    } else if((obj.taskName === taskName) && indx){
+      if (obj.checked === true) {
+        document.getElementById(obj.taskName).checked = true ;
+        p.nextSibling.firstChild.style.color = "#e8e8e894";
+        p.nextSibling.firstChild.style.textDecoration = "line-through";
+        p.parentElement.parentElement.style.opacity = "0.7";
+        p.parentElement.nextElementSibling.firstChild.style.pointerEvents = "none";
       }
     }
   });
 };
 
-//Select functionality
+// -----------------------------------------------------Select functionality
 const ableDisableTasks = (container, id, state) => {
   const containerArr = Array.from(container);
   if (state === true) {
@@ -316,7 +316,7 @@ const selectTask = (id) => {
   });
 };
 
-// option-btn dropdown
+//-----------------------------------------------option-btn dropdown
 let optionsDropped = false;
 let menuDropped = false;
 function dropdownOption() {
@@ -347,40 +347,51 @@ function dropdownOption() {
 document.querySelector(".option-btn").addEventListener("click", dropdownOption);
 document.querySelector(".menu-btn").addEventListener("click", dropdownOption);
 
-//display functionality
+
+// --------------------------------------------display functionality
 function display() {
   // console.log(this);
   let children =Array.from(document.querySelector(".task-panel-content").children)
-  
-    if(this.id === "display-all-tasks"){
-        children.forEach((childs)=>{
-            childs.remove()
-        })
-        
-        tasks.forEach((obj, index) => {
-        create(obj);
-        });
-    }
- 
-    if(this.id === "display-completed-tasks"){
-        children.forEach((child)=>{
-            let childId = child.firstElementChild.firstElementChild.id
-            tasks.forEach((obj)=>{
-                // console.log(obj);
-                if((childId === obj.taskName) && (obj.checked === false)){
-                    child.remove()
-                }
-            })
-            if(children.length === 0){
-                const p = document.createElement('p')
-                p.innerText = "No completed tasks !"
-                document.querySelector('.task-panel-content').appendChild(p)
-            }
-        })
+  children.forEach((childs)=>{
+      childs.remove()
+  })
+  let isEmpty = 0;
+  let note = document.createElement('p')
 
+    if(this.id === "display-all-tasks"){
+        tasks.forEach((obj) => {
+        isEmpty++
+        create(obj);
+        if(obj.checked === true){
+          checkTask(obj.taskName, 1)
+        }
+        });
+        note.innerText = "Add Tasks !"
+    }
+
+    if(this.id === "display-completed-tasks"){
+      tasks.forEach((obj)=>{
+        if(obj.checked === true){
+          isEmpty++
+          create(obj)
+          checkTask(obj.taskName, 1)
+        }
+      })
+      note.innerText = "No Tasks Completed Yet !"
     }
 
     if(this.id === "display-in-progess-tasks"){
+      tasks.forEach((obj)=>{
+        if((obj.progress > 0) && (obj.checked === false)){
+          // console.log(true);
+          isEmpty++
+          create(obj)
+        }
+      })
+      note.innerText = "No Progress In Any Task !"
+    }
+    if(!isEmpty){
+      document.querySelector('.task-panel-content').appendChild(note)
     }
 }
 document.querySelector("#display-all-tasks").addEventListener("click", display);
