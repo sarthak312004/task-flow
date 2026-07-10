@@ -56,6 +56,9 @@ const updateProgress = (progress) => {
 
 // -------------------------------------------------Start the timer
 function startCounter() {
+  if(selectedTask){
+    selectedTask.children[1].style.visibility = 'hidden'
+  }
   if (isRunning === false) {
     interval = setInterval(function () {
       counterSec++;
@@ -92,7 +95,9 @@ function stopCounter() {
   document.querySelector("#play-pause-btn img").src = "res/play-icon.png";
   if (selectedTask != undefined) {
     selectedTask.firstChild.firstChild.nextElementSibling.firstChild.nextElementSibling.innerText = `${fetchProgress()}m`;
+    selectedTask.children[1].style.visibility = 'visible'
   }
+
 }
 function resetCounter() {
   stopCounter();
@@ -299,6 +304,7 @@ const selectTask = (id) => {
     if (obj.id === id && obj.selected === false) {
       obj.selected = true;
       selectP.innerText = "Deselect";
+      document.getElementById(id).style.visibility = 'hidden'
       ableDisableTasks(
         document.querySelector(".task-panel-content").children,
         id,
@@ -307,6 +313,7 @@ const selectTask = (id) => {
     } else if (obj.id === id && obj.selected === true) {
       obj.selected = false;
       selectP.innerText = "Select";
+      document.getElementById(id).style.visibility = 'visible'
       ableDisableTasks(
         document.querySelector(".task-panel-content").children,
         id,
@@ -346,7 +353,6 @@ function dropdownOption() {
 }
 document.querySelector(".option-btn").addEventListener("click", dropdownOption);
 document.querySelector(".menu-btn").addEventListener("click", dropdownOption);
-
 
 // --------------------------------------------display functionality
 function display() {
