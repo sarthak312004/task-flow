@@ -403,3 +403,26 @@ function display() {
 document.querySelector("#display-all-tasks").addEventListener("click", display);
 document.querySelector("#display-completed-tasks").addEventListener("click", display);
 document.querySelector("#display-in-progess-tasks").addEventListener("click", display);
+
+//------------------------------------------Audio Functionality
+
+const audio = [{audioSrc:'res/SpotiDownloader.com - another calm - jaspurrr.mp3', audioName:"another calm"},
+               {audioSrc:'res/SpotiDownloader.com - Auburn Valley - so.tired (3).mp3', audioName:"Auburn Valley"},
+               {audioSrc:'res/SpotiDownloader.com - Slow Mornings - SoulsUnited71.mp3', audioName:"Slow Mornings"}]
+
+let audioTag = document.createElement('audio')
+audioTag.loop = true
+document.querySelector('#audio').addEventListener('change', function(){
+    return playAudio(this.value)
+  })
+
+audio.forEach((aud)=>{
+  const audioOpt = document.createElement('option')
+  audioOpt.value = aud.audioSrc
+  audioOpt.innerText = aud.audioName
+  document.querySelector('#audio').appendChild(audioOpt)
+})
+function playAudio(src){
+  audioTag.src = src
+  audioTag.play()
+}
