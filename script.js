@@ -19,6 +19,7 @@ let selectedTask;
 //-----------------------------------------------Click handler
 function playpauseHandler() {
   if (isRunning == false) {
+    playAudio()
     startCounter();
     startGlowHigher = setInterval(function () {
       document.querySelector(".counter-div").style.boxShadow =
@@ -90,6 +91,7 @@ document
 
 //---------------------------------------------------- Pause and Reset Timer
 function stopCounter() {
+  playAudio.stopAudio()
   clearInterval(interval);
   isRunning = false;
   document.querySelector("#play-pause-btn img").src = "res/play-icon.png";
@@ -277,6 +279,7 @@ const checkTask = (taskName, indx) => {
 const ableDisableTasks = (container, id, state) => {
   const containerArr = Array.from(container);
   if (state === true) {
+    document.querySelector('.dropdown-optio-container').style.pointerEvents = 'none'
     containerArr.forEach((obj) => {
       // console.log(obj);
       // console.log(obj.children[1].children[1].id);
@@ -289,6 +292,7 @@ const ableDisableTasks = (container, id, state) => {
       }
     });
   } else {
+    document.querySelector('.dropdown-optio-container').style.pointerEvents = 'auto'
     containerArr.forEach((obj) => {
       // console.log(obj.children[1].children[1].id);
       if (!(Number(obj.children[1].children[1].id) === id)) {
@@ -412,17 +416,35 @@ const audio = [{audioSrc:'res/SpotiDownloader.com - another calm - jaspurrr.mp3'
 
 let audioTag = document.createElement('audio')
 audioTag.loop = true
-document.querySelector('#audio').addEventListener('change', function(){
-    return playAudio(this.value)
-  })
 
 audio.forEach((aud)=>{
   const audioOpt = document.createElement('option')
   audioOpt.value = aud.audioSrc
   audioOpt.innerText = aud.audioName
+
+  document.querySelector('#audio').addEventListener('change', function(){
+    if(isRunning){
+      return playAudio(this.value)
+    }
+  })
+  
   document.querySelector('#audio').appendChild(audioOpt)
 })
+
 function playAudio(src){
-  audioTag.src = src
-  audioTag.play()
+  const audioSrc = document.querySelector('#audio').value
+  audioTag.src = audioSrc
+  if(isRunning){
+    audioTag.pause()
+    audioTag.src = src
+    audioTag.play()
+  }
+  if(!isRunning){
+    const audioSrc = document.querySelector('#audio').value
+    audioTag.src = audioSrc
+    audioTag.play()
+  }
+}
+Object.prototype.stopAudio = function(){ 
+    audioTag.pause()
 }
